@@ -47,8 +47,8 @@ public class TestPercolation {
 		// Creating pairs
 		for(int i = 0; i < open; i++)
 		{
-			int x = generator.nextInt(size);
-			int y = generator.nextInt(size);
+			int x = generator.nextInt(size) + 1;
+			int y = generator.nextInt(size) + 1;
 			
 			p.open(x, y);
 			
