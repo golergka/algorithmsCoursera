@@ -71,6 +71,24 @@ public class TestPercolation {
 			assertFalse("None should be full yet!", p.isFull(generator.nextInt(size) + 1, generator.nextInt(size) + 1));
 	}
 	
+	public void testFullShafts(int size) {
+		
+		Percolation p = new Percolation(size);
+		
+		for (int i = 0; i < size; i++)
+		{
+			int column = generator.nextInt(size) + 1;
+			int depth = generator.nextInt(size) + 1;
+			
+			for (int j = 1; j <= depth; j++)
+			{
+				p.open(column, j);
+			}
+			
+			assertTrue("Shaft should be dug and filled!", p.isFull(column, depth));
+		}
+	}
+	
 	public static void main(String[] args) {
 		
 		StdOut.println("Starting tests... ");
@@ -88,6 +106,10 @@ public class TestPercolation {
 		tester.testFullClosed(1);
 		tester.testFullClosed(5);
 		tester.testFullClosed(20);
+		
+		tester.testFullShafts(1);
+		tester.testFullShafts(5);
+		tester.testFullShafts(1024);
 		
 		StdOut.println("Tests complete.");
 	}
