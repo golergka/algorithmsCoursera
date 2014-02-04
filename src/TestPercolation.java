@@ -24,6 +24,8 @@ public class TestPercolation {
 	
 	public void testBounds(int size)
 	{
+		StdOut.println("testBounds " + size);
+		
 		Percolation p = new Percolation(size);
 		
 		p.open(1,1);
@@ -37,6 +39,7 @@ public class TestPercolation {
 	}
 
 	public void testOpen(int size, int open) {
+		StdOut.println("testOpen " + size);
 		
 		Percolation p = new Percolation(size);
 		
@@ -64,6 +67,7 @@ public class TestPercolation {
 	}
 	
 	public void testFullClosed(int size) {
+		StdOut.println("testFullClosed " + size);
 		
 		Percolation p = new Percolation(size);
 		
@@ -72,6 +76,7 @@ public class TestPercolation {
 	}
 	
 	public void testFullShafts(int size) {
+		StdOut.println("testFullShafts " + size);
 		
 		Percolation p = new Percolation(size);
 		
@@ -93,6 +98,7 @@ public class TestPercolation {
 	}
 	
 	public void testPercolates(int size) {
+		StdOut.println("testPercolates " + size);
 		
 		Percolation p  = new Percolation(size);
 		
@@ -113,7 +119,7 @@ public class TestPercolation {
 		tester.testBounds(1);
 		tester.testBounds(5);
 		tester.testBounds(15);
-		tester.testBounds(4096);
+		tester.testBounds(512);
 		
 		tester.testOpen(2, 1);
 		tester.testOpen(15, 5);
@@ -133,6 +139,11 @@ public class TestPercolation {
 		tester.testPercolates(1);
 		tester.testPercolates(8);
 		tester.testPercolates(128);
+		tester.testPercolates(256);
+		tester.testPercolates(512);
+		tester.testPercolates(1024);
+		tester.testPercolates(2048);
+//		tester.testPercolates(4096);
 		
 		StdOut.println("Tests complete.");
 	}
