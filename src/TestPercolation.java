@@ -92,6 +92,18 @@ public class TestPercolation {
 		}
 	}
 	
+	public void testPercolates(int size) {
+		
+		Percolation p  = new Percolation(size);
+		
+		int column = generator.nextInt(size) + 1;
+		
+		for(int i = 1; i <= size; i++)
+			p.open(i, column);
+		
+		assertTrue("Should percolate!",p.percolates());
+	}
+	
 	public static void main(String[] args) {
 		
 		StdOut.println("Starting tests... ");
@@ -117,6 +129,10 @@ public class TestPercolation {
 		tester.testFullShafts(15);
 		tester.testFullShafts(128);
 		tester.testFullShafts(256);
+		
+		tester.testPercolates(1);
+		tester.testPercolates(8);
+		tester.testPercolates(128);
 		
 		StdOut.println("Tests complete.");
 	}
