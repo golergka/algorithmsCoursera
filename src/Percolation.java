@@ -7,6 +7,8 @@ public class Percolation {
 	
 	IUnionFind unionFind;
 	
+	boolean percolates = false;
+	
 	public Percolation(int N) {
 		size = N;
 		openTable = new boolean[N][N];
@@ -47,6 +49,9 @@ public class Percolation {
 		if (j < size)
 			unionIfOpen(i, j, i, j+1);
 		
+		if (i == size && isFull(i,j))
+			percolates = true;
+		
 //		print();
 	}
 	
@@ -76,6 +81,6 @@ public class Percolation {
 	}
 	
 	public boolean percolates() {
-		return false;
+		return percolates;
 	}
 }
