@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/algs4.jar"/>
 	<classpathentry kind="lib" path="lib/stdlib.jar"/>
+	<classpathentry kind="lib" path="/Users/maxankov/Documents/eclipseWorkspace/CourseraAlgorithms/lib/junit-4.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
