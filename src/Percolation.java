@@ -5,14 +5,14 @@ public class Percolation {
 	
 	final int size;
 	
-	IUnionFind unionFind;
+	WeightedQuickUnionUF unionFind;
 	
 	boolean percolates = false;
 	
 	public Percolation(int N) {
 		size = N;
 		openTable = new boolean[N][N];
-		unionFind = new QuickUnion(N*N + 1);
+		unionFind = new WeightedQuickUnionUF(N*N + 1);
 	}
 	
 	void unionIfOpen(int i1, int j1, int i2, int j2) {
