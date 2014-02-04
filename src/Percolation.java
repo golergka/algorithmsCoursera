@@ -77,7 +77,7 @@ public class Percolation {
 	}
 	
 	public boolean isFull(int i, int j) {
-		return unionFind.areConnected((i-1)*size + (j-1), size*size);
+		return unionFind.connected((i-1)*size + (j-1), size*size);
 	}
 	
 	public boolean percolates() {

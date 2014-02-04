@@ -25,13 +25,13 @@ public class QuickUnion implements IUnionFind {
 	}
 
 	@Override
-	public boolean areConnected(int p, int q) {
+	public boolean connected(int p, int q) {
 		return root(p) == root(q);
 	}
 
 	@Override
 	public void union(int p, int q) {
-		if (areConnected(p, q))
+		if (connected(p, q))
 			return;
 		parents[root(q)] = p;
 	}
