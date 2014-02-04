@@ -7,8 +7,36 @@ import java.util.Random;
 public class TestPercolation {
 	
 	Random generator = new Random();
+	
+	void assertBounds(Percolation p, int x, int y)
+	{
+		try
+		{
+			p.open(x, y);
+			fail("Should've thrown exception");
+		}
+		catch(Exception ex)
+		{
+			assertTrue("Should've thrown java.lang.IndexOutOfBoundsException!",
+					ex instanceof java.lang.IndexOutOfBoundsException);
+		}
+	}
+	
+	public void testBounds(int size)
+	{
+		Percolation p = new Percolation(size);
+		
+		p.open(1,1);
+		p.open(size, size);
+		
+		assertBounds(p, size+1, size);
+		assertBounds(p, size+1, size+1);
+		assertBounds(p, 0, 1);
+		assertBounds(p, 0, 0);
+		assertBounds(p, -size, size);
+	}
 
-	public void TestOpen(int size, int open) {
+	public void testOpen(int size, int open) {
 		
 		Percolation p = new Percolation(size);
 		
@@ -41,16 +69,13 @@ public class TestPercolation {
 		
 		TestPercolation tester = new TestPercolation();
 		
-		try
-		{
-			tester.TestOpen(2, 1);
-			tester.TestOpen(512, 20);
-			tester.TestOpen(512, 4000);
-		}
-		catch(Exception ex)
-		{
-			StdOut.println(ex.toString());
-		}
+		tester.testBounds(1);
+		tester.testBounds(5);
+		tester.testBounds(4096);
+		
+		tester.testOpen(2, 1);
+		tester.testOpen(512, 20);
+		tester.testOpen(512, 4000);
 		
 		StdOut.println("Tests complete.");
 	}
