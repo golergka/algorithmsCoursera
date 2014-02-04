@@ -63,6 +63,14 @@ public class TestPercolation {
 		}
 	}
 	
+	public void testFullClosed(int size) {
+		
+		Percolation p = new Percolation(size);
+		
+		for (int i = 0; i < size*size; i++)
+			assertFalse("None should be full yet!", p.isFull(generator.nextInt(size) + 1, generator.nextInt(size) + 1));
+	}
+	
 	public static void main(String[] args) {
 		
 		StdOut.println("Starting tests... ");
@@ -76,6 +84,10 @@ public class TestPercolation {
 		tester.testOpen(2, 1);
 		tester.testOpen(512, 20);
 		tester.testOpen(512, 4000);
+		
+		tester.testFullClosed(1);
+		tester.testFullClosed(5);
+		tester.testFullClosed(20);
 		
 		StdOut.println("Tests complete.");
 	}
