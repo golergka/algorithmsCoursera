@@ -2,39 +2,32 @@
 public class PercolationStats {
 	
 	// perform T independent computational experiments on an N-by-N grid
-	public PercolationStats(int N, int T)
-	{
-		
+	public PercolationStats(int N, int T) {
 		if (N <= 0 || T <= 0)
 			throw new IllegalArgumentException();
 	}
 	
 	// sample mean of percolation threshold
-	public double mean()
-	{
+	public double mean() {
 		return 0;
 	}
 	
 	// sample standard deviation of percolation threshold
-	public double stddev()
-	{
+	public double stddev() {
 		return 0;
 	}
 	
 	// returns lower bound of the 95% confidence interval
-	public double confidenceLo()
-	{
+	public double confidenceLo() {
 		return 0;
 	}
 	
 	// returns upper bound of the 95% confidence interval
-	public double confidenceHi()
-	{
+	public double confidenceHi() {
 		return 0;
 	}
 	
-	public void main(String[] args)
-	{
+	public void main(String[] args) {
 		
 	}
 }
