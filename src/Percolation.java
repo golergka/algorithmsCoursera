@@ -53,6 +53,7 @@ public class Percolation {
 			percolates = true;
 		
 //		print();
+		PercolationVisualizer.draw(this, size);
 	}
 	
 	void print() {
