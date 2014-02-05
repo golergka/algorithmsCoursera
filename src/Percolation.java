@@ -51,9 +51,6 @@ public class Percolation {
 		
 		if (i == size && isFull(i,j))
 			percolates = true;
-		
-//		print();
-		PercolationVisualizer.draw(this, size);
 	}
 	
 	void print() {

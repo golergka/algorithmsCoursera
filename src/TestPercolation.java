@@ -85,15 +85,13 @@ public class TestPercolation {
 			int column = generator.nextInt(size) + 1;
 			int depth = generator.nextInt(size) + 1;
 			
-//			StdOut.println("Digging to ["+depth+":"+column+"]");
-			
 			for (int j = 1; j <= depth; j++)
 			{
 				p.open(j, column);
-//				StdOut.println("Dug to" + j);
+				PercolationVisualizer.draw(p, size);
 			}
 			
-//			assertTrue("Shaft should be dug and filled at [" + depth + ":" + column + "]", p.isFull(depth, column));
+			assertTrue("Shaft should be dug and filled at [" + depth + ":" + column + "]", p.isFull(depth, column));
 		}
 	}
 	
@@ -105,7 +103,10 @@ public class TestPercolation {
 		int column = generator.nextInt(size) + 1;
 		
 		for(int i = 1; i <= size; i++)
+		{
 			p.open(i, column);
+			PercolationVisualizer.draw(p, size);
+		}
 		
 		assertTrue("Should percolate!",p.percolates());
 	}
@@ -134,7 +135,10 @@ public class TestPercolation {
 		}
 		
 		for(int i = 0; i < size; i++)
+		{
 			p.open(depths[i], column);
+			PercolationVisualizer.draw(p, size);
+		}
 			
 		assertTrue("Should percolate!", p.percolates());
 	}
@@ -148,29 +152,16 @@ public class TestPercolation {
 		tester.testBounds(1);
 		tester.testBounds(5);
 		tester.testBounds(15);
-//		tester.testBounds(512);
 		
 		tester.testOpen(2, 1);
 		tester.testOpen(15, 5);
-//		tester.testOpen(512, 20);
-//		tester.testOpen(512, 4000);
 		
-		tester.testFullClosed(1);
-		tester.testFullClosed(5);
-		tester.testFullClosed(20);
 		
-		tester.testFullShafts(1);
-		tester.testFullShafts(5);
-		tester.testFullShafts(15);
-//		tester.testFullShafts(128);
-//		tester.testFullShafts(256);
-		
-		int n = 1;
-		
-		while (n < 5)
-		{
+		for(int n = 1; n <= 32; n *= 2) {
+			tester.testFullClosed(n);
+			tester.testFullShafts(n);
 			tester.testPercolatesStraightColumn(n);
-			n *= 2;
+			tester.testPercolatesRandomColumn(n);
 		}
 		
 		StdOut.println("Tests complete.");
