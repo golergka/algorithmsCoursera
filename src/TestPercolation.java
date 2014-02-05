@@ -97,7 +97,7 @@ public class TestPercolation {
 		}
 	}
 	
-	public void testPercolates(int size) {
+	public void testPercolatesStraightColumn(int size) {
 		StdOut.println("testPercolates " + size);
 		
 		Percolation p  = new Percolation(size);
@@ -140,7 +140,7 @@ public class TestPercolation {
 		
 		while (n < 5)
 		{
-			tester.testPercolates(n);
+			tester.testPercolatesStraightColumn(n);
 			n *= 2;
 		}
 		
