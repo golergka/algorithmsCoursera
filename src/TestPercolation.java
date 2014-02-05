@@ -98,7 +98,7 @@ public class TestPercolation {
 	}
 	
 	public void testPercolatesStraightColumn(int size) {
-		StdOut.println("testPercolates " + size);
+		StdOut.println("testPercolatesStraightColumn " + size);
 		
 		Percolation p  = new Percolation(size);
 		
@@ -108,6 +108,35 @@ public class TestPercolation {
 			p.open(i, column);
 		
 		assertTrue("Should percolate!",p.percolates());
+	}
+	
+	public void testPercolatesRandomColumn(int size) {
+		StdOut.println("testPercolatesRandomColumn " + size);
+		
+		Percolation p = new Percolation(size);
+		
+		int column = generator.nextInt(size) + 1;
+		
+		int[] depths = new int[size];
+		for(int i = 0; i < size; i++)
+			depths[i] = i+1;
+		
+		// Randomizing depths
+		for(int i = size-1; i > 0; i--)
+		{
+			for(int j = i; j > 0; j--)
+			{
+				int n = generator.nextInt(j);
+				int e = depths[n];
+				depths[n] = depths[j];
+				depths[j] = e;
+			}
+		}
+		
+		for(int i = 0; i < size; i++)
+			p.open(depths[i], column);
+			
+		assertTrue("Should percolate!", p.percolates());
 	}
 	
 	public static void main(String[] args) {
@@ -144,7 +173,7 @@ public class TestPercolation {
 			n *= 2;
 		}
 		
-//		StdOut.println("Tests complete.");
+		StdOut.println("Tests complete.");
 	}
 
 }
