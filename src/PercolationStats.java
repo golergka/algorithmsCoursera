@@ -5,6 +5,8 @@ public class PercolationStats {
 	public PercolationStats(int N, int T)
 	{
 		
+		if (N <= 0 || T <= 0)
+			throw new IllegalArgumentException();
 	}
 	
 	// sample mean of percolation threshold
