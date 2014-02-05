@@ -7,6 +7,7 @@ import java.util.Random;
 public class TestPercolation {
 	
 	Random generator = new Random();
+	boolean visualize = false;
 	
 	void assertBounds(Percolation p, int x, int y)
 	{
@@ -88,7 +89,8 @@ public class TestPercolation {
 			for (int j = 1; j <= depth; j++)
 			{
 				p.open(j, column);
-				PercolationVisualizer.draw(p, size);
+				if (visualize)
+					PercolationVisualizer.draw(p, size);
 			}
 			
 			assertTrue("Shaft should be dug and filled at [" + depth + ":" + column + "]", p.isFull(depth, column));
@@ -105,7 +107,8 @@ public class TestPercolation {
 		for(int i = 1; i <= size; i++)
 		{
 			p.open(i, column);
-			PercolationVisualizer.draw(p, size);
+			if (visualize)
+				PercolationVisualizer.draw(p, size);
 		}
 		
 		assertTrue("Should percolate!",p.percolates());
@@ -137,7 +140,8 @@ public class TestPercolation {
 		for(int i = 0; i < size; i++)
 		{
 			p.open(depths[i], column);
-			PercolationVisualizer.draw(p, size);
+			if (visualize)
+				PercolationVisualizer.draw(p, size);
 		}
 			
 		assertTrue("Should percolate!", p.percolates());
@@ -156,7 +160,7 @@ public class TestPercolation {
 		tester.testOpen(2, 1);
 		tester.testOpen(15, 5);
 		
-		for(int n = 1; n <= 32; n *= 2) {
+		for(int n = 1; n <= 4096; n *= 2) {
 			tester.testFullClosed(n);
 			tester.testFullShafts(n);
 			tester.testPercolatesStraightColumn(n);
