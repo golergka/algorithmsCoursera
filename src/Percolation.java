@@ -1,84 +1,98 @@
 
 public class Percolation {
 	
-	boolean [][] openTable;
+	boolean [][] m_Open;
 	
-	final int size;
+	final int m_Size;
 	
-	WeightedQuickUnionUF unionFind;
+	WeightedQuickUnionUF m_UnionFind;
 	
-	boolean percolates = false;
+	boolean[] m_Full;
+	boolean[] m_Grounded;
+	
+	boolean m_Percolates = false;
 	
 	public Percolation(int N) {
-		size = N;
-		openTable = new boolean[N][N];
-		unionFind = new WeightedQuickUnionUF(N*N + 1);
+		m_Size = N;
+		m_Open = new boolean[N+1][N+1];
+		m_Full = new boolean[N*N];
+		m_Grounded = new boolean[N*N];
+		m_UnionFind = new WeightedQuickUnionUF(N*N);
+	}
+	
+	int coordinatesToInt(int i, int j) {
+		return (i-1)*m_Size + (j-1);
 	}
 	
 	void unionIfOpen(int i1, int j1, int i2, int j2) {
 		
-		if (openTable[i1-1][j1-1] && openTable[i2-1][j2-1])
-			unionFind.union((i1-1)*size + (j1-1), (i2-1)*size + (j2-1));
+		if (m_Open[i1][j1] && m_Open[i2][j2])
+		{
+			boolean filled = isFull(i1,j2) || isFull(i2, j2);
+			boolean grounded = isGrounded(i1,j2) || isGrounded(i2, j2);
+			
+			m_UnionFind.union(coordinatesToInt(i1,j1), coordinatesToInt(i2,j2));
+			
+			if (filled) fill(i1,j1);
+			if (grounded) ground(i2, j2);
+		}
 	}
 	
 	boolean validCoordinate(int i) {
-		return !(i < 1 || i > size);
+		return !(i < 1 || i > m_Size);
 	}
 	
 	void checkCoordinate(int i) {
 		if (!validCoordinate(i))
-			throw new java.lang.IndexOutOfBoundsException("Coordinate outside of range: " + i + " [1;" + size + "]");
+			throw new java.lang.IndexOutOfBoundsException("Coordinate outside of range: " + i + " [1;" + m_Size + "]");
 	}
 	
 	public void open(int i, int j) {
 		checkCoordinate(i);
 		checkCoordinate(j);
 		
-		openTable[i-1][j-1] = true;
+		m_Open[i][j] = true;
 		
-		// Connecting to the top layer
+		// Connecting to the top an bottom
 		if (i == 1)
-			unionFind.union((i-1)*size+(j-1), size*size);
+			fill(i,j);
+		if (i == m_Size)
+			ground(i,j);
 		
 		if (i > 1)
 			unionIfOpen(i, j, i-1, j);
-		if (i < size)
+		if (i < m_Size)
 			unionIfOpen(i, j, i+1, j);
 		if (j > 1)
 			unionIfOpen(i, j, i, j-1);
-		if (j < size)
+		if (j < m_Size)
 			unionIfOpen(i, j, i, j+1);
 		
-		if (i == size && isFull(i,j))
-			percolates = true;
-	}
-	
-	void print() {
-		
-		for(int i = 0; i < size; i++)
-		{
-			for(int j = 0; j < size; j++)
-				if (openTable[i][j])
-					if (isFull(i+1, j+1))
-						StdOut.print("X");
-					else
-						StdOut.print("O");
-				else
-					StdOut.print("_");
-			StdOut.print("\n");
-		}
-		
+		if (isFull(i,j) && isGrounded(i,j))
+			m_Percolates = true;
 	}
 	
 	public boolean isOpen(int i, int j) {
-		return openTable[i-1][j-1];
+		return m_Open[i][j];
 	}
 	
 	public boolean isFull(int i, int j) {
-		return unionFind.connected((i-1)*size + (j-1), size*size);
+		return m_Full[m_UnionFind.find(coordinatesToInt(i,j))];
+	}
+	
+	void fill(int i, int j) {
+		m_Full[m_UnionFind.find(coordinatesToInt(i,j))] = true;
+	}
+	
+	boolean isGrounded(int i, int j) {
+		return m_Grounded[m_UnionFind.find(coordinatesToInt(i,j))];
+	}
+	
+	void ground(int i, int j) {
+		m_Grounded[m_UnionFind.find(coordinatesToInt(i,j))] = true;
 	}
 	
 	public boolean percolates() {
-		return percolates;
+		return m_Percolates;
 	}
 }

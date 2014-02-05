@@ -156,7 +156,6 @@ public class TestPercolation {
 		tester.testOpen(2, 1);
 		tester.testOpen(15, 5);
 		
-		
 		for(int n = 1; n <= 32; n *= 2) {
 			tester.testFullClosed(n);
 			tester.testFullShafts(n);
