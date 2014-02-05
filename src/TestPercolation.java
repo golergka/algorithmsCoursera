@@ -119,12 +119,12 @@ public class TestPercolation {
 		tester.testBounds(1);
 		tester.testBounds(5);
 		tester.testBounds(15);
-		tester.testBounds(512);
+//		tester.testBounds(512);
 		
 		tester.testOpen(2, 1);
 		tester.testOpen(15, 5);
-		tester.testOpen(512, 20);
-		tester.testOpen(512, 4000);
+//		tester.testOpen(512, 20);
+//		tester.testOpen(512, 4000);
 		
 		tester.testFullClosed(1);
 		tester.testFullClosed(5);
@@ -133,19 +133,18 @@ public class TestPercolation {
 		tester.testFullShafts(1);
 		tester.testFullShafts(5);
 		tester.testFullShafts(15);
-		tester.testFullShafts(128);
-		tester.testFullShafts(256);
+//		tester.testFullShafts(128);
+//		tester.testFullShafts(256);
 		
-		tester.testPercolates(1);
-		tester.testPercolates(8);
-		tester.testPercolates(128);
-		tester.testPercolates(256);
-		tester.testPercolates(512);
-		tester.testPercolates(1024);
-		tester.testPercolates(2048);
-//		tester.testPercolates(4096);
+		int n = 1;
 		
-		StdOut.println("Tests complete.");
+		while (n < 5)
+		{
+			tester.testPercolates(n);
+			n *= 2;
+		}
+		
+//		StdOut.println("Tests complete.");
 	}
 
 }
