@@ -1,16 +1,16 @@
 
 public class Percolation {
 	
-	boolean [][] m_Open;
+	private boolean [][] m_Open;
 	
-	final int m_Size;
+	private final int m_Size;
 	
-	WeightedQuickUnionUF m_UnionFind;
+	private WeightedQuickUnionUF m_UnionFind;
 	
-	boolean[] m_Full;
-	boolean[] m_Grounded;
+	private boolean[] m_Full;
+	private boolean[] m_Grounded;
 	
-	boolean m_Percolates = false;
+	private boolean m_Percolates = false;
 	
 	public Percolation(int N) {
 		m_Size = N;
@@ -20,11 +20,11 @@ public class Percolation {
 		m_UnionFind = new WeightedQuickUnionUF(N*N);
 	}
 	
-	int coordinatesToInt(int i, int j) {
+	private int coordinatesToInt(int i, int j) {
 		return (i-1)*m_Size + (j-1);
 	}
 	
-	void unionIfOpen(int i1, int j1, int i2, int j2) {
+	private void unionIfOpen(int i1, int j1, int i2, int j2) {
 		
 		if (m_Open[i1][j1] && m_Open[i2][j2])
 		{
@@ -38,11 +38,11 @@ public class Percolation {
 		}
 	}
 	
-	boolean validCoordinate(int i) {
+	private boolean validCoordinate(int i) {
 		return !(i < 1 || i > m_Size);
 	}
 	
-	void checkCoordinate(int i) {
+	private void checkCoordinate(int i) {
 		if (!validCoordinate(i))
 			throw new java.lang.IndexOutOfBoundsException("Coordinate outside of range: " + i + " [1;" + m_Size + "]");
 	}
@@ -80,15 +80,15 @@ public class Percolation {
 		return m_Full[m_UnionFind.find(coordinatesToInt(i,j))];
 	}
 	
-	void fill(int i, int j) {
+	private void fill(int i, int j) {
 		m_Full[m_UnionFind.find(coordinatesToInt(i,j))] = true;
 	}
 	
-	boolean isGrounded(int i, int j) {
+	private boolean isGrounded(int i, int j) {
 		return m_Grounded[m_UnionFind.find(coordinatesToInt(i,j))];
 	}
 	
-	void ground(int i, int j) {
+	private void ground(int i, int j) {
 		m_Grounded[m_UnionFind.find(coordinatesToInt(i,j))] = true;
 	}
 	

@@ -1,9 +1,9 @@
 
 public class PercolationStats {
 	
-	final int[] m_Experiments;
-	final double[] m_Fractions;
-	final int m_Size;
+	private final int[] m_Experiments;
+	private final double[] m_Fractions;
+	private final int m_Size;
 	
 	// perform T independent computational experiments on an N-by-N grid
 	public PercolationStats(int N, int T) {
@@ -22,7 +22,7 @@ public class PercolationStats {
 		}
 	}
 	
-	int experiment(int N) {
+	private int experiment(int N) {
 		int result = 0;
 		Percolation p = new Percolation(N);
 		
