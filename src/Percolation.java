@@ -82,6 +82,9 @@ public class Percolation {
     }
 
     public boolean isFull(int i, int j) {
+        checkCoordinate(i);
+        checkCoordinate(j);
+        
         return full[unionFind.find(coordinatesToInt(i, j))];
     }
 
