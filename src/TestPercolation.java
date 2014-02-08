@@ -168,6 +168,8 @@ public class TestPercolation {
         tester.testBounds(1);
         tester.testBounds(5);
         tester.testBounds(15);
+        
+        tester.testBounds2();
 
         tester.testOpen(2, 1);
         tester.testOpen(15, 5);
