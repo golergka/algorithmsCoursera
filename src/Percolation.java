@@ -35,9 +35,16 @@ public class Percolation {
                     coordinatesToInt(i1, j1),
                     coordinatesToInt(i2, j2)
                     );
+            
+            if (unionFind.find(coordinatesToInt(i1, j1)) !=
+                    unionFind.find(coordinatesToInt(i2, j2))) {
+                throw new java.lang.IllegalStateException(
+                        "Can't union ["+i1+","+j1+"] and ["+i2+","+j2+"]"
+                        );
+            }
 
             if (thisFilled) fill(i1, j1);
-            if (thisGrounded) ground(i2, j2);
+            if (thisGrounded) ground(i1, j1);
         }
     }
 
