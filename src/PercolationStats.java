@@ -1,23 +1,25 @@
 public class PercolationStats {
 
-    private final int[] experiments;
-    private final double[] fractions;
-    private final int size;
+    private final double mean;
+    private final double stddev;
+    private final double confidenceLo;
+    private final double confidenceHi;
 
     // perform T independent computational experiments on an N-by-N grid
     public PercolationStats(int N, int T) {
         if (N <= 0 || T <= 0)
             throw new IllegalArgumentException();
-
-        size = N;
-
-        experiments = new int[T];
-        fractions = new double[T];
+        
+        double[] fractions = new double[T];
 
         for (int i = 0; i < T; i++) {
-            experiments[i] = experiment(N);
-            fractions[i] = experiments[i] / (double) (size * size);
+            fractions[i] = experiment(N) / (double) (N * N);
         }
+        
+        mean = StdStats.mean(fractions);
+        stddev = StdStats.stddev(fractions);
+        confidenceLo = mean - 1.96 * stddev / Math.sqrt(fractions.length);
+        confidenceHi = mean + 1.96 * stddev / Math.sqrt(fractions.length);
     }
 
     private int experiment(int N) {
@@ -38,22 +40,22 @@ public class PercolationStats {
 
     // sample mean of percolation threshold
     public double mean() {
-        return StdStats.mean(fractions);
+        return mean;
     }
 
     // sample standard deviation of percolation threshold
     public double stddev() {
-        return StdStats.stddev(fractions);
+        return stddev;
     }
 
     // returns lower bound of the 95% confidence interval
     public double confidenceLo() {
-        return mean() - 1.96 * stddev() / Math.sqrt(experiments.length);
+        return confidenceLo;
     }
 
     // returns upper bound of the 95% confidence interval
     public double confidenceHi() {
-        return mean() + 1.96 * stddev() / Math.sqrt(experiments.length);
+        return confidenceHi;
     }
 
     public static void main(String[] args) {
