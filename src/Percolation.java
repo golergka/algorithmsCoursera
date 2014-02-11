@@ -26,19 +26,11 @@ public class Percolation {
 
     private void unionIfOpen(int i1, int j1, int i2, int j2) {
 
-//        StdOut.println("unionIfOpen " + Integer.toString(i1) + " "
-//        + Integer.toString(j1) + " " + Integer.toString(i2)
-//        + " " + Integer.toString(j2));
-
         if (isOpen(i1, j1) && isOpen(i2, j2))
         {
-//            StdOut.println("both open");
             
             boolean thisFilled = isFull(i1, j1) || isFull(i2, j2);
             boolean thisGrounded = isGrounded(i1, j1) || isGrounded(i2, j2);
-            
-//            StdOut.println("filled: " + Boolean.toString(thisFilled));
-//            StdOut.println("grounded: " + Boolean.toString(thisGrounded));
 
             unionFind.union(
                     coordinatesToInt(i1, j1),
@@ -54,15 +46,11 @@ public class Percolation {
 
             if (thisFilled) fill(i1, j1);
             if (thisGrounded) ground(i1, j1);
-
-//            StdOut.println("filled1 " + Boolean.toString(isFull(i1, j1)));
-//            StdOut.println("filled2 " + Boolean.toString(isFull(i2, j2)));
+            
+        }
     }
-    }
-
+    
     public void open(int i, int j) {
-
-//        StdOut.println("open " + Integer.toString(i) + " " + Integer.toString(j));
 
         open[i-1][j-1] = true;
 
