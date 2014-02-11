@@ -26,26 +26,23 @@ public class Percolation {
 
     private void unionIfOpen(int i1, int j1, int i2, int j2) {
 
-        if (isOpen(i1, j1) && isOpen(i2, j2))
+        if (isOpen(i2, j2))
         {
+            int c1 = unionFind.find(coordinatesToInt(i1, j1));
+            int c2 = unionFind.find(coordinatesToInt(i2, j2));
             
-            boolean thisFilled = isFull(i1, j1) || isFull(i2, j2);
-            boolean thisGrounded = isGrounded(i1, j1) || isGrounded(i2, j2);
-
-            unionFind.union(
-                    coordinatesToInt(i1, j1),
-                    coordinatesToInt(i2, j2)
-                    );
+            int r1 = unionFind.find(c1);
+            int r2 = unionFind.find(c2);
             
-            if (unionFind.find(coordinatesToInt(i1, j1))
-                    != unionFind.find(coordinatesToInt(i2, j2))) {
-                throw new java.lang.IllegalStateException(
-                        "Can't union ["+i1+","+j1+"] and ["+i2+","+j2+"]"
-                        );
-            }
+            boolean thisFilled = full[r1] || full[r2];
+            boolean thisGrounded = grounded[r1] || grounded[r2];
 
-            if (thisFilled) fill(i1, j1);
-            if (thisGrounded) ground(i1, j1);
+            unionFind.union(c1, c2);
+            
+            int rNew = unionFind.find(c1);
+
+            if (thisFilled) full[rNew] = true;
+            if (thisGrounded) grounded[rNew] = true;
             
         }
     }
