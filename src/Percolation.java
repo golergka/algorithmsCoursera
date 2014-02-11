@@ -14,7 +14,7 @@ public class Percolation {
 
     public Percolation(int N) {
         size = N;
-        open = new boolean[N+1][N+1];
+        open = new boolean[N][N];
         full = new boolean[N*N];
         grounded = new boolean[N*N];
         unionFind = new WeightedQuickUnionUF(N*N);
@@ -26,18 +26,27 @@ public class Percolation {
 
     private void unionIfOpen(int i1, int j1, int i2, int j2) {
 
-        if (open[i1][j1] && open[i2][j2])
+//        StdOut.println("unionIfOpen " + Integer.toString(i1) + " "
+//        + Integer.toString(j1) + " " + Integer.toString(i2)
+//        + " " + Integer.toString(j2));
+
+        if (isOpen(i1, j1) && isOpen(i2, j2))
         {
-            boolean thisFilled = isFull(i1, j2) || isFull(i2, j2);
-            boolean thisGrounded = isGrounded(i1, j2) || isGrounded(i2, j2);
+//            StdOut.println("both open");
+            
+            boolean thisFilled = isFull(i1, j1) || isFull(i2, j2);
+            boolean thisGrounded = isGrounded(i1, j1) || isGrounded(i2, j2);
+            
+//            StdOut.println("filled: " + Boolean.toString(thisFilled));
+//            StdOut.println("grounded: " + Boolean.toString(thisGrounded));
 
             unionFind.union(
                     coordinatesToInt(i1, j1),
                     coordinatesToInt(i2, j2)
                     );
             
-            if (unionFind.find(coordinatesToInt(i1, j1)) !=
-                    unionFind.find(coordinatesToInt(i2, j2))) {
+            if (unionFind.find(coordinatesToInt(i1, j1))
+                    != unionFind.find(coordinatesToInt(i2, j2))) {
                 throw new java.lang.IllegalStateException(
                         "Can't union ["+i1+","+j1+"] and ["+i2+","+j2+"]"
                         );
@@ -45,25 +54,17 @@ public class Percolation {
 
             if (thisFilled) fill(i1, j1);
             if (thisGrounded) ground(i1, j1);
-        }
-    }
 
-    private boolean validCoordinate(int i) {
-        return !(i < 1 || i > size);
+//            StdOut.println("filled1 " + Boolean.toString(isFull(i1, j1)));
+//            StdOut.println("filled2 " + Boolean.toString(isFull(i2, j2)));
     }
-
-    private void checkCoordinate(int i) {
-        if (!validCoordinate(i))
-            throw new java.lang.IndexOutOfBoundsException(
-                    "Coordinate outside of range: " + i + " [1;" + size + "]"
-                    );
     }
 
     public void open(int i, int j) {
-        checkCoordinate(i);
-        checkCoordinate(j);
 
-        open[i][j] = true;
+//        StdOut.println("open " + Integer.toString(i) + " " + Integer.toString(j));
+
+        open[i-1][j-1] = true;
 
         // Connecting to the top an bottom
         if (i == 1)
@@ -85,14 +86,11 @@ public class Percolation {
     }
 
     public boolean isOpen(int i, int j) {
-        return open[i][j];
+        return open[i-1][j-1];
     }
 
     public boolean isFull(int i, int j) {
-        checkCoordinate(i);
-        checkCoordinate(j);
-        
-        return full[unionFind.find(coordinatesToInt(i, j))];
+        return isOpen(i, j) && full[unionFind.find(coordinatesToInt(i, j))];
     }
 
     private void fill(int i, int j) {
