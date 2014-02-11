@@ -13,17 +13,19 @@ public class TestPercolation {
         try {
             p.open(x, y);
             fail("Should've thrown exception");
-        } catch (Exception ex) {
-            assertTrue("Should've thrown java.lang.IndexOutOfBoundsException!",
-                    ex instanceof java.lang.IndexOutOfBoundsException);
+        } catch (IndexOutOfBoundsException ex) {
+        }
+        
+        try {
+            p.isOpen(x, y);
+            fail("Should've thrown exception");
+        } catch (IndexOutOfBoundsException ex) {
         }
         
         try {
             p.isFull(x, y);
             fail("Should've thrown exception");
-        } catch (Exception ex) {
-            assertTrue("Should've thrown java.lang.IndexOutOfBoundsException!",
-                    ex instanceof java.lang.IndexOutOfBoundsException);
+        } catch (IndexOutOfBoundsException ex) {
         }
     }
 
@@ -158,6 +160,44 @@ public class TestPercolation {
 
         assertTrue("Should percolate!", p.percolates());
     }
+    
+    public void testFirstRow(int size) {
+        StdOut.println("testFirstRow " + size);
+        
+        List<Integer> xList = new ArrayList<Integer>();
+        List<Integer> yList = new ArrayList<Integer>();
+        
+        try {
+            Percolation p = new Percolation(size);
+            
+            for (int i = 0; i < size * size; i++) {
+                int x = generator.nextInt(size) + 1;
+                int y = generator.nextInt(size) + 1;
+                
+                p.open(x, y);
+                
+                xList.add(x);
+                yList.add(y);
+                
+                if (x == 1)
+                    assertTrue(p.isFull(x,  y));
+            }
+        } catch(java.lang.AssertionError e) {
+            
+            StdOut.println("sheeeit");
+            
+            Percolation p = new Percolation(size);
+            
+            for(int i = 0; i < xList.size(); i++) {
+                p.open(xList.get(i), yList.get(i));
+//                PercolationVisualizer.draw(p, size);
+                StdOut.println(Integer.toString(xList.get(i))
+                        + " " + Integer.toString(yList.get(i)));
+            }
+           
+           throw e;
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -174,11 +214,15 @@ public class TestPercolation {
         tester.testOpen(2, 1);
         tester.testOpen(15, 5);
 
-        for (int n = 1; n <= 4096; n *= 2) {
-            tester.testFullClosed(n);
-            tester.testFullShafts(n);
-            tester.testPercolatesStraightColumn(n);
-            tester.testPercolatesRandomColumn(n);
+        for (int n = 1; n <= 1024; n *= 2) {
+            for(int i = 1; i <= 20; i++)
+            {
+                tester.testFullClosed(n);
+                tester.testFullShafts(n);
+                tester.testPercolatesStraightColumn(n);
+                tester.testPercolatesRandomColumn(n);            
+                tester.testFirstRow(n);
+            }
         }
 
         StdOut.println("Tests complete.");
