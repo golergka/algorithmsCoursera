@@ -89,6 +89,24 @@ public class TestDeque {
         assertEquals(size, d.size());
     }
     
+    void testIterator(int size) {
+        StdOut.println("testIterator " + size);
+        
+        Deque<Integer> d = new Deque<Integer>();
+        
+        for(int i = 0; i < size; i++) {
+            d.addFirst(StdRandom.uniform(size));
+        }
+        
+        int s = 0;
+        
+        for(@SuppressWarnings("unused") int i : d) {
+            s++;
+        }
+        
+        assertEquals(s, size);
+    }
+    
     public static void main(String[] args) {
         StdOut.println("Starting Deque tests...");
         
@@ -100,6 +118,8 @@ public class TestDeque {
             tester.testStraightPass(i);
             tester.testReversePass(i);
             tester.testEmptyAfterUse(i);
+            tester.testSize(i);
+            tester.testIterator(i);
         }
         
         StdOut.println("Deque tests complete.");
