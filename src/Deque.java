@@ -1,33 +1,85 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 
 public class Deque<Item> implements Iterable<Item> {
+    
+    private class Node {
+        Item content;
+        Node previous;
+        Node next;
+        
+        Node(Item content, Node previous, Node next) {
+            this.content = content;
+            this.previous = previous;
+            this.next = next;
+        }
+    }
+    
+    private Node first;
+    private Node last;
+    
+    private int size = 0;
     
     public Deque() {
     }
     
     public boolean isEmpty() {
-        throw new UnsupportedOperationException();
+        return size == 0;
     }
     
     public int size() {
-        throw new UnsupportedOperationException();
+        return size;
     }
     
     public void addFirst(Item item) {
-        throw new UnsupportedOperationException();
+        size++;
+        Node push = first;
+        first = new Node(item, null, push);
+        if (push != null)
+            push.previous = first;
+        else
+            last = first;
     }
     
     public void addLast(Item item) {
-        throw new UnsupportedOperationException();
+        size++;
+        Node push = last;
+        last = new Node(item, push, null);
+        if (push != null)
+            push.next = last;
+        else
+            first = last;
     }
     
     public Item removeFirst() {
-        throw new UnsupportedOperationException();
+        if (first == null) {
+            throw new NoSuchElementException();
+        }
+        else
+        {
+            size--;
+            Node pop = first;
+            first = first.next;
+            if (first == null)
+                last = null;
+            return pop.content;
+        }
     }
     
     public Item removeLast() {
-        throw new UnsupportedOperationException();
+        if (last == null) {
+            throw new NoSuchElementException();
+        }
+        else
+        {
+            size--;
+            Node pop = last;
+            last = last.previous;
+            if (last == null)
+                first = null;
+            return pop.content;
+        }
     }
 
     @Override

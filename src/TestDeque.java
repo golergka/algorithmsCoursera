@@ -14,7 +14,8 @@ public class TestDeque {
         }
         
         for(int i = 0; i < size; i++) {
-            assertTrue("fail at " + Integer.toString(i), d.removeLast() == i);
+            int r = d.removeLast();
+            assertTrue("fail at " + Integer.toString(i) + " it is " + r, r == i);
         }
         
     }
@@ -29,7 +30,9 @@ public class TestDeque {
         }
         
         for(int i = size - 1; i >= 0; i--) {
-            assertTrue("fail at " + Integer.toString(i), d.removeFirst() == 1);
+            int r = d.removeFirst();
+            assertTrue("fail at " + Integer.toString(i) + " it is " + r,
+                    r == i);
         }
     }
     
@@ -87,18 +90,18 @@ public class TestDeque {
     }
     
     public static void main(String[] args) {
+        StdOut.println("Starting Deque tests...");
         
         TestDeque tester = new TestDeque();
         
         tester.testEmpty();
         
-        for(int i = 0; i <= 1024; i *= 2) {
+        for(int i = 1; i <= 1024; i *= 2) {
             tester.testStraightPass(i);
             tester.testReversePass(i);
             tester.testEmptyAfterUse(i);
         }
         
-        StdOut.println("Starting Deque tests...");
         StdOut.println("Deque tests complete.");
     }
 
