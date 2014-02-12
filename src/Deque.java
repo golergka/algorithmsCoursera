@@ -81,10 +81,38 @@ public class Deque<Item> implements Iterable<Item> {
             return pop.content;
         }
     }
+    
+    private class DequeIterator implements Iterator<Item> {
+        
+        Node current;
+        
+        DequeIterator(Deque<Item> d) {
+            
+            current = new Node(null, null, d.first);
+            
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current.next != null;
+        }
+
+        @Override
+        public Item next() {
+            current = current.next;
+            return current.content;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+        
+    }
 
     @Override
     public Iterator<Item> iterator() {
-        throw new UnsupportedOperationException();
+        return new DequeIterator(this);
     }
     
     public static void main(String[] args) {
