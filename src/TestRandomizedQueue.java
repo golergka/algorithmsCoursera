@@ -82,7 +82,7 @@ public class TestRandomizedQueue {
         
         tester.testEmpty();
         
-        for(int i = 1; i < 1024; i *= 2) {
+        for(int i = 1; i <= 1024; i *= 2) {
             tester.testEmptyAfterUse(i);
             tester.testIterator(i);
             tester.testSize(i);

@@ -59,11 +59,31 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         contents[randomIndex] = contents[N-1];
         return result;
     }
+    
+    private class RandomizedQueueIterator implements Iterator<Item> {
+        int current = 0;
+        RandomizedQueue<Item> my;
+        
+        RandomizedQueueIterator(RandomizedQueue<Item> my) {
+            this.my = my;
+        }
+        @Override
+        public boolean hasNext() {
+            return current < my.N;
+        }
+        @Override
+        public Item next() {
+            return my.contents[current++];
+        }
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+    }
 
     @Override
     public Iterator<Item> iterator() {
-        // TODO Auto-generated method stub
-        return null;
+        return new RandomizedQueueIterator(this);
     }
     
     public static void main(String[] args) {
