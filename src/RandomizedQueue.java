@@ -7,9 +7,10 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] contents;
     private int N = 0;
     
-    @SuppressWarnings("unchecked")
     public RandomizedQueue() {
-        contents = (Item[]) new Object[1];
+        @SuppressWarnings("unchecked")
+        Item[] items = (Item[]) new Object[1];
+        contents = items;
     }
     
     public boolean isEmpty() {
@@ -28,7 +29,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (N == contents.length) {
             @SuppressWarnings("unchecked")
             Item[] newContents = (Item[]) new Object[N*2];
-            for(int i = 0; i < contents.length; i++) {
+            for (int i = 0; i < contents.length; i++) {
                 newContents[i] = contents[i];
             }
             contents = newContents;
@@ -41,7 +42,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (N < contents.length/4) {
             @SuppressWarnings("unchecked")
             Item[] newContents = (Item[]) new Object[contents.length/2];
-            for(int i = 0; i < contents.length/2; i++) {
+            for (int i = 0; i < contents.length/2; i++) {
                 newContents[i] = contents[i];
             }
             contents = newContents;
@@ -61,8 +62,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
     
     private class RandomizedQueueIterator implements Iterator<Item> {
-        int current = 0;
-        RandomizedQueue<Item> my;
+        private int current = 0;
+        private RandomizedQueue<Item> my;
         
         RandomizedQueueIterator(RandomizedQueue<Item> my) {
             this.my = my;
