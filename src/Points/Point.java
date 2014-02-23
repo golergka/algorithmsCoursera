@@ -19,8 +19,19 @@ public class Point implements Comparable<Point> {
 
         @Override
         public int compare(Point o1, Point o2) {
-            return (int) Math.ceil(
-                    Point.this.slopeTo(o1) - Point.this.slopeTo(o2));
+            double s1 = Point.this.slopeTo(o1);
+            double s2 = Point.this.slopeTo(o2);
+            
+            if (s1 == s2)
+                return 0;
+            
+            if (s1 > s2)
+                return 1;
+            
+            if (s1 < s2)
+                return -1;
+            
+            throw new IllegalStateException();
         }
         
     };
