@@ -63,18 +63,30 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     
     private class RandomizedQueueIterator implements Iterator<Item> {
         private int current = 0;
-        private RandomizedQueue<Item> my;
+        private Item[] contents;
         
+        @SuppressWarnings("unchecked")
         RandomizedQueueIterator(RandomizedQueue<Item> my) {
-            this.my = my;
+            contents = (Item[]) new Object[my.N];
+            
+            for(int i = 0; i < my.N; i++) {
+                contents[i] = my.contents[i];
+            }
+            
+            for (int i = contents.length; i > 0; i--) {
+                int randomIndex = StdRandom.uniform(i);
+                Item temp = contents[randomIndex];
+                contents[randomIndex] = contents[i-1];
+                contents[i-1] = temp;
+            }
         }
         @Override
         public boolean hasNext() {
-            return current < my.N;
+            return current < contents.length;
         }
         @Override
         public Item next() {
-            return my.contents[current++];
+            return contents[current++];
         }
         @Override
         public void remove() {
