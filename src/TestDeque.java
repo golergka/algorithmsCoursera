@@ -107,12 +107,29 @@ public class TestDeque {
         assertEquals(s, size);
     }
     
+    void testThrowsNull() {
+        StdOut.println("testThrowsNull");
+        
+        Deque<Object> d = new Deque<Object>();
+        
+        try {
+            d.addFirst(null);
+            fail("Should've thrown exception!");
+        } catch (NullPointerException e) { }
+        
+        try {
+            d.addLast(null);
+            fail("Should've thrown exception!");
+        } catch (NullPointerException e) { }
+    }
+    
     public static void main(String[] args) {
         StdOut.println("Starting Deque tests...");
         
         TestDeque tester = new TestDeque();
         
         tester.testEmpty();
+        tester.testThrowsNull();
         
         for(int i = 1; i <= 1024; i *= 2) {
             tester.testStraightPass(i);
