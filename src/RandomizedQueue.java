@@ -37,7 +37,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
     
     public Item dequeue() {
-        Item result = sample();
+        if (N == 0) {
+            throw new NoSuchElementException();
+        }
+        
+        int randomIndex = StdRandom.uniform(N);
+        Item result = contents[randomIndex];
+        contents[randomIndex] = contents[N-1];
         N--;
         if (N < contents.length/4) {
             @SuppressWarnings("unchecked")
@@ -57,7 +63,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         
         int randomIndex = StdRandom.uniform(N);
         Item result = contents[randomIndex];
-        contents[randomIndex] = contents[N-1];
         return result;
     }
     
