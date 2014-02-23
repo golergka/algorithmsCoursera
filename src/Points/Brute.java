@@ -12,6 +12,8 @@ public class Brute {
             points[i] = new Point(file.readInt(), file.readInt());
         }
         
+        Quick.sort(points);
+        
         StdDraw.clear();
         StdDraw.setXscale(0, 32768);
         StdDraw.setYscale(0, 32768);
