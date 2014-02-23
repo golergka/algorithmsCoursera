@@ -113,6 +113,8 @@ public class TestRandomizedQueue {
             if (i > 4)
                 tester.testDifferentIterators(i);
         }
+        
+        StdOut.println("tests successfull");
     }
     
 }
