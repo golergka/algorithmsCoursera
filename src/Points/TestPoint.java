@@ -53,6 +53,41 @@ public class TestPoint {
         assertEquals(p.compareTo(p), 0);
     }
     
+    @SuppressWarnings("deprecation")
+    public void testSlopeToHorizontal(int limit) {
+        StdOut.println("testSlopeToHorizontal " + limit);
+        
+        int y = StdRandom.uniform(-limit, limit);
+        
+        Point p1 = new Point(StdRandom.uniform(-limit, limit), y);
+        Point p2 = new Point(StdRandom.uniform(-limit, limit), y);
+        
+        assertEquals(p1.slopeTo(p2), 0d);
+    }
+    
+    @SuppressWarnings("deprecation")
+    public void testSlopeToVertical(int limit) {
+        StdOut.println("testSlopeToVertical " + limit);
+        
+        int x = StdRandom.uniform(-limit, limit);
+        
+        Point p1 = new Point(x, StdRandom.uniform(-limit, limit));
+        Point p2 = new Point(x, StdRandom.uniform(-limit, limit));
+        
+        assertEquals(p1.slopeTo(p2), Double.POSITIVE_INFINITY);
+    }
+    
+    @SuppressWarnings("deprecation")
+    public void testSlopeToSelf(int limit) {
+        StdOut.println("testSlopeToSelf " + limit);
+        
+        Point p = new Point(
+                StdRandom.uniform(-limit, limit),
+                StdRandom.uniform(-limit, limit));
+        
+        assertEquals(p.slopeTo(p), Double.NEGATIVE_INFINITY);
+    }
+    
     public static void main(String[] args) {
         StdOut.println("Starting tests for Point...");
         
@@ -61,6 +96,9 @@ public class TestPoint {
         for(int i = 1; i <= 1024; i *= 2) {
             tester.testCompareTo(i);
             tester.testCompareToSymmetry(i);
+            tester.testSlopeToHorizontal(i);
+            tester.testSlopeToVertical(i);
+            tester.testSlopeToSelf(i);
         }
         
         StdOut.println("Tests complete.");
