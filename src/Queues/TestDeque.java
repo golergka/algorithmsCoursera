@@ -60,6 +60,7 @@ public class TestDeque {
         
         Deque<Integer> d = new Deque<Integer>();
         assertEmpty(d);
+        assertFalse(d.iterator().hasNext());
         
     }
     
