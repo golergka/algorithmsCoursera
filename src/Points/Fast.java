@@ -66,14 +66,18 @@ public class Fast {
             LinkedList<Point> segment,
             double slope
             ) {
-        if (lines.containsKey(p) && lines.get(p) == slope)
-            return;
+        
         
         Point[] s = new Point[segment.size() + 1];
         s[0] = p;
         Iterator<Point> iterator = segment.iterator();
         for(int k = 0; k < segment.size(); k++)
-            s[k+1] = iterator.next();        
+            s[k+1] = iterator.next();
+        
+        for(Point sp : s)
+            if (lines.containsKey(sp) && lines.get(sp) == slope)
+                return;
+        
         Arrays.sort(s);
         s[0].drawTo(s[s.length - 1]);
         String output = s[0].toString();
