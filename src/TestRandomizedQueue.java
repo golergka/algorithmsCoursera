@@ -97,6 +97,27 @@ public class TestRandomizedQueue {
         
         fail("Sequences should be different");
     }
+    
+    void testIteratorNextThrowsNoElement(int size) {
+        StdOut.println("testIteratorNextThrowsNoElement " + size);
+        
+        RandomizedQueue<Integer> r = new RandomizedQueue<Integer>();
+        
+        for(int i = 0; i < size; i++) {
+            r.enqueue(StdRandom.uniform(size));
+        }
+        
+        Iterator<Integer> iterator = r.iterator();
+        
+        for(int i = 0; i < size; i++)
+            iterator.next();
+        
+        try
+        {
+            iterator.next();
+            fail("Should've thrown exception!");
+        } catch (NoSuchElementException e) { }
+    }
 
     public static void main(String[] args) {
         StdOut.println("Starting RandomizedQueue tests...");
@@ -109,6 +130,7 @@ public class TestRandomizedQueue {
             tester.testEmptyAfterUse(i);
             tester.testIterator(i);
             tester.testSize(i);
+            tester.testIteratorNextThrowsNoElement(i);
             
             if (i > 4)
                 tester.testDifferentIterators(i);
