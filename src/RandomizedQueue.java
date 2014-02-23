@@ -44,6 +44,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         int randomIndex = StdRandom.uniform(N);
         Item result = contents[randomIndex];
         contents[randomIndex] = contents[N-1];
+        contents[N-1] = null;
         N--;
         if (N < contents.length/4) {
             @SuppressWarnings("unchecked")
