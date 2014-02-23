@@ -5,9 +5,9 @@ import java.util.NoSuchElementException;
 public class Deque<Item> implements Iterable<Item> {
     
     private class Node {
-        Item content;
-        Node previous;
-        Node next;
+        public Item content;
+        public Node previous;
+        public Node next;
         
         Node(Item content, Node previous, Node next) {
             this.content = content;
@@ -84,7 +84,7 @@ public class Deque<Item> implements Iterable<Item> {
     
     private class DequeIterator implements Iterator<Item> {
         
-        Node current;
+        private Node current;
         
         DequeIterator(Deque<Item> d) {
             
