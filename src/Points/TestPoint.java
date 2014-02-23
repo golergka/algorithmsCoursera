@@ -93,6 +93,29 @@ public class TestPoint {
         assertEquals("p: " + p, p.slopeTo(p), Double.NEGATIVE_INFINITY, 0d);
     }
     
+    public void testSlopeOrder(int limit) {
+        StdOut.println("testSlopeOrder " + limit);
+        
+        Point p1 = new Point(
+                StdRandom.uniform(-limit, limit),
+                StdRandom.uniform(-limit, limit));
+        
+        Point p2 = new Point(
+                StdRandom.uniform(-limit, limit),
+                StdRandom.uniform(-limit, limit));
+        
+        Point p3 = new Point(
+                StdRandom.uniform(-limit, limit),
+                StdRandom.uniform(-limit, limit));
+        
+        if (p1.slopeTo(p2) > p1.slopeTo(p3))
+            assertTrue(p1.SLOPE_ORDER.compare(p2, p3) > 0);
+        else if (p1.slopeTo(p2) == p1.slopeTo(p3))
+            assertTrue(p1.SLOPE_ORDER.compare(p2, p3) == 0);
+        else if (p1.slopeTo(p2) < p1.slopeTo(p3))
+            assertTrue(p1.SLOPE_ORDER.compare(p2, p3) < 0);
+    }
+    
     public static void main(String[] args) {
         StdOut.println("Starting tests for Point...");
         
@@ -104,6 +127,7 @@ public class TestPoint {
             tester.testSlopeToHorizontal(i);
             tester.testSlopeToVertical(i);
             tester.testSlopeToSelf(i);
+            tester.testSlopeOrder(i);
         }
         
         StdOut.println("Tests complete.");
