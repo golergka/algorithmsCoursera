@@ -45,7 +45,7 @@ public class Fast {
                 }
                
                 if (thisSlope != commonSlope) {
-                    if (segment.size() >= 2) {
+                    if (segment.size() >= 3) {
                         segment(p, segment, commonSlope);
                     }
                     segment.clear();
@@ -54,7 +54,7 @@ public class Fast {
                 segment.add(q);
                 commonSlope = thisSlope;
                
-                if (j == points2.length-1 && segment.size() >= 2) {
+                if (j == points2.length-1 && segment.size() >= 3) {
                     segment(p, segment, commonSlope);
                 }
             }
