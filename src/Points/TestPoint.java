@@ -54,12 +54,16 @@ public class TestPoint {
     }
     
     public static void main(String[] args) {
+        StdOut.println("Starting tests for Point...");
+        
         TestPoint tester = new TestPoint();
         
         for(int i = 1; i <= 1024; i *= 2) {
             tester.testCompareTo(i);
             tester.testCompareToSymmetry(i);
         }
+        
+        StdOut.println("Tests complete.");
     }
 
 }
