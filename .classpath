@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="Percolation/|Queues/" kind="src" path="src"/>
+	<classpathentry excluding="Percolation/|Queues/|Points/" kind="src" path="src"/>
 	<classpathentry kind="src" path="src/Percolation"/>
 	<classpathentry kind="src" path="src/Queues"/>
+	<classpathentry kind="src" path="src/Points"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/algs4.jar"/>
 	<classpathentry kind="lib" path="lib/stdlib.jar"/>
