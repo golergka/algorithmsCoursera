@@ -64,8 +64,8 @@ public class TestPoint {
             p2 = new Point(StdRandom.uniform(-limit, limit), y);
         } while (p1.compareTo(p2) == 0);
         
-        assertEquals("p1 " + p1.toString() + "p2 " + p2.toString(),
-                p1.slopeTo(p2), 0d, 0d);
+        assertTrue("p1 " + p1.toString() + "p2 " + p2.toString(),
+                new Double (p1.slopeTo(p2)).equals(new Double(+0.0)));
     }
     
     public void testSlopeToVertical(int limit) {
