@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class TestRandomizedQueue {
@@ -74,6 +75,28 @@ public class TestRandomizedQueue {
         
         assertEquals(s, size);
     }
+    
+    void testDifferentIterators(int size) {
+        StdOut.println("testDifferentIterators " + size);
+        
+        RandomizedQueue<Integer> r = new RandomizedQueue<Integer>();
+        
+        for(int i = 0; i < size; i++) {
+            r.enqueue(StdRandom.uniform(size));
+        }
+        
+        Iterator<Integer> iterator1 = r.iterator();
+        Iterator<Integer> iterator2 = r.iterator();
+        
+        for(int i = 0; i < size; i++) {
+            int n1 = iterator1.next();
+            int n2 = iterator2.next();
+            
+            if (n1 != n2) return;
+        }
+        
+        fail("Sequences should be different");
+    }
 
     public static void main(String[] args) {
         StdOut.println("Starting RandomizedQueue tests...");
@@ -86,6 +109,9 @@ public class TestRandomizedQueue {
             tester.testEmptyAfterUse(i);
             tester.testIterator(i);
             tester.testSize(i);
+            
+            if (i > 4)
+                tester.testDifferentIterators(i);
         }
     }
     
