@@ -24,7 +24,6 @@ public class Brute {
             
             for (int i2 = i1; i2 < N; i2++) {
                 Point p2 = points[i2];
-                p2.draw();
                 
                 double s = p1.slopeTo(p2);
 
@@ -34,7 +33,6 @@ public class Brute {
                 
                 for (int i3 = i2; i3 < N; i3++) {
                     Point p3 = points[i3];
-                    p3.draw();
                     
                     if (p1.slopeTo(p3) == s)
                     {
@@ -43,7 +41,6 @@ public class Brute {
                         
                         for (int i4 = i3; i4 < N; i4++) {
                             Point p4 = points[i4];
-                            p4.draw();
                             
                             if (p3.slopeTo(p4) == Double.NEGATIVE_INFINITY)
                                 continue;
