@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class TestDeque {
@@ -123,6 +124,27 @@ public class TestDeque {
         } catch (NullPointerException e) { }
     }
     
+    void testIteratorNextThrowsNoElement(int size) {
+        StdOut.println("testIteratorNextThrowsNoElement " + size);
+        
+        Deque<Integer> d = new Deque<Integer>();
+        
+        for(int i = 0; i < size; i++) {
+            d.addFirst(StdRandom.uniform(size));
+        }
+        
+        Iterator<Integer> iterator = d.iterator();
+        
+        for(int i = 0; i < size; i++)
+            iterator.next();
+        
+        try
+        {
+            iterator.next();
+            fail("Should've thrown exception!");
+        } catch (NoSuchElementException e) { }
+    }
+    
     public static void main(String[] args) {
         StdOut.println("Starting Deque tests...");
         
@@ -137,6 +159,7 @@ public class TestDeque {
             tester.testEmptyAfterUse(i);
             tester.testSize(i);
             tester.testIterator(i);
+            tester.testIteratorNextThrowsNoElement(i);
         }
         
         StdOut.println("Deque tests complete.");
